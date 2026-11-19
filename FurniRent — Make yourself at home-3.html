@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://localhost:5500/#catalog -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f6f2">
+  <title>FurniRent — Make yourself at home</title>
+  <style>
+    :root {
+      --ink: #20231f;
+      --muted: #73776f;
+      --paper: #f7f6f2;
+      --white: #fff;
+      --green: #364d3d;
+      --green-light: #e8eee8;
+      --line: #e7e6df;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .announcement {
+      padding: 10px 20px;
+      text-align: center;
+      color: white;
+      background: var(--green);
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(247, 246, 242, .94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(32, 35, 31, .07);
+    }
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo { font-size: 21px; font-weight: 750; letter-spacing: -.06em; }
+    .logo span { color: #788b72; }
+    .nav-links { display: flex; gap: 30px; color: #53574f; font-size: 14px; }
+    .nav-links a:hover { color: var(--green); }
+    .cart-button, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 19px;
+      font-weight: 650;
+    }
+    .cart-button { color: white; background: var(--green); }
+    .cart-count {
+      display: inline-grid;
+      width: 21px;
+      height: 21px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green);
+      background: white;
+      font-size: 11px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+      padding: 64px 0 74px;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 17px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 560px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: .99;
+    }
+    .hero-copy {
+      max-width: 440px;
+      margin: 22px 0 27px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .button-primary { color: white; background: var(--green); }
+    .button-primary:hover, .cart-button:hover { background: #263b2d; }
+    .button-secondary { color: var(--ink); background: white; border: 1px solid var(--line); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+    .hero-image {
+      min-height: 390px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: #ddd;
+    }
+    .hero-image img { width: 100%; height: 100%; min-height: 390px; object-fit: cover; display: block; }
+    .hero-note {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      max-width: 220px;
+      padding: 15px 17px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .hero-note strong { display: block; margin-bottom: 3px; }
+
+    .perks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      padding: 23px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .perk { display: flex; align-items: center; gap: 12px; color: #555950; font-size: 13px; }
+    .perk-icon {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      flex: 0 0 39px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 17px;
+    }
+
+    .catalog { padding: 76px 0 86px; }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 45px);
+      font-weight: 500;
+      letter-spacing: -.04em;
+    }
+    .section-subtitle { margin: 9px 0 0; color: var(--muted); font-size: 14px; }
+    .search {
+      width: min(280px, 100%);
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      outline: none;
+      background: white;
+    }
+    .search:focus { border-color: #879584; }
+    .filters { display: flex; gap: 9px; overflow-x: auto; padding: 2px 0 22px; }
+    .filter {
+      flex: 0 0 auto;
+      padding: 9px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #5d615a;
+      background: transparent;
+      font-size: 13px;
+    }
+    .filter.active, .filter:hover { border-color: var(--green); color: white; background: var(--green); }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 19px;
+    }
+    .product-card {
+      overflow: hidden;
+      border: 1px solid #eeede7;
+      border-radius: var(--radius);
+      background: white;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px #20231f0d; }
+    .product-image { position: relative; aspect-ratio: 1 / .86; overflow: hidden; background: #eeece6; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .product-info { padding: 15px; }
+    .product-category { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; }
+    .product-name { margin: 6px 0 12px; font-size: 15px; font-weight: 650; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .price { font-weight: 750; font-size: 15px; }
+    .price small { color: var(--muted); font-size: 11px; font-weight: 450; }
+    .add-button {
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      color: white;
+      background: var(--green);
+      font-size: 20px;
+      line-height: 1;
+    }
+    .empty-state { grid-column: 1 / -1; padding: 42px; color: var(--muted); text-align: center; }
+
+    .banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 80px;
+      padding: 38px;
+      border-radius: 24px;
+      color: white;
+      background: var(--green);
+    }
+    .banner h2 { max-width: 540px; font-size: clamp(30px, 4vw, 42px); }
+    .banner p { margin: 12px 0 0; color: #d7dfd7; font-size: 14px; }
+    .banner .button { flex: 0 0 auto; color: var(--green); background: white; }
+
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 10;
+      padding: 13px 18px;
+      border-radius: 12px;
+      color: white;
+      background: #263b2d;
+      box-shadow: 0 8px 25px #0002;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: .2s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero { gap: 30px; }
+      .hero-image, .hero-image img { min-height: 330px; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 30px, 1160px); }
+      .announcement { font-size: 11px; }
+      .nav { min-height: 64px; }
+      .nav-links { display: none; }
+      .cart-button { padding: 10px 13px; font-size: 13px; }
+      .hero { grid-template-columns: 1fr; padding: 45px 0 38px; gap: 28px; }
+      .hero-image, .hero-image img { min-height: 270px; }
+      .perks { grid-template-columns: 1fr; gap: 14px; }
+      .catalog { padding: 58px 0; }
+      .section-heading { align-items: stretch; flex-direction: column; }
+      .search { width: 100%; }
+      .products { gap: 11px; }
+      .product-info { padding: 12px; }
+      .product-name { font-size: 13px; }
+      .price { font-size: 13px; }
+      .banner { align-items: flex-start; flex-direction: column; margin-bottom: 55px; padding: 26px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+<!-- Code injected by Five-server -->
+  <script async="" data-id="five-server" data-file="c:\Users\abhay\OneDrive\Desktop\rental website 2\index.html" type="application/javascript" src="./FurniRent — Make yourself at home-3_files/fiveserver.js.download"></script>
+  <style>      
+      /* Injected by five-server */
+      /*[data-highlight="true"] {
+        border: 1px rgb(90,170,255) solid !important;
+        background-color: rgba(155,215,255,0.5);
+        animation: fadeOutHighlight 1s forwards 0.5s;
+      }
+      img[data-highlight="true"] {
+        filter: sepia(100%) hue-rotate(180deg) saturate(200%);
+        animation: fadeOutHighlightIMG 0.5s forwards 0.5s;
+      }*/
+      @keyframes fadeOutHighlight {
+        from {background-color: rgba(155,215,255,0.5);}
+        to {background-color: rgba(155,215,255,0);}
+      }      
+      @keyframes fadeOutHighlightIMG {
+        0% {filter: sepia(100%) hue-rotate(180deg) saturate(200%);}
+        33% {filter: sepia(66%) hue-rotate(180deg) saturate(100%);}
+        50% {filter: sepia(50%) hue-rotate(90deg) saturate(50%);}
+        66% {filter: sepia(33%) hue-rotate(0deg) saturate(100%);}
+        100% {filter: sepia(0%) hue-rotate(0deg) saturate(100%);}
+      }
+      @keyframes fiveserverInfoPopup {
+        0%   {top:-40px;}
+        15%  {top:4px;}
+        85%  {top:4px;}
+        100% {top:-40px;}
+      }
+      /*smaller*/
+      @media (max-width: 640px) {
+        #fiveserver-info-wrapper {
+          max-width: 98%;
+        }
+        #fiveserver-info {
+          border-radius: 0px;
+        }      
+      }
+
+      </style></head>
+<body>
+  <div class="announcement">A better way to furnish your space · Delivery and setup available</div>
+
+  <header>
+    <div class="container nav">
+      <a class="logo" href="http://localhost:5500/#" aria-label="FurniRent home">furni<span>rent</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="http://localhost:5500/#catalog">Furniture</a>
+        <a href="http://localhost:5500/#catalog" data-nav-filter="Appliances">Appliances</a>
+        <a href="http://localhost:5500/#how-it-works">How it works</a>
+      </nav>
+      <button class="cart-button" id="cartButton" type="button">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <span class="eyebrow">Your space, your way</span>
+        <h1>Feel at home.<br>Without buying it all.</h1>
+        <p class="hero-copy">
+          Thoughtfully chosen furniture and appliances, delivered when you need them.
+          Rent for a month or stay for a while.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="http://localhost:5500/#catalog">Explore the collection <span aria-hidden="true">→</span></a>
+          <a class="button button-secondary" href="http://localhost:5500/#how-it-works">How renting works</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="./FurniRent — Make yourself at home-3_files/photo-1600210492486-724fe5c67fb0" alt="Warm, modern living room furnished with a sofa and coffee table">
+        <div class="hero-note"><strong>Good design, made flexible.</strong>Keep it for a month, a year, or as long as you like.</div>
+      </div>
+    </section>
+
+    <section class="container perks" id="how-it-works" aria-label="Rental benefits">
+      <div class="perk"><span class="perk-icon" aria-hidden="true">↗</span><span><strong>Easy delivery</strong><br>We bring it to your door</span></div>
+      <div class="perk"><span class="perk-icon" aria-hidden="true">◇</span><span><strong>Flexible rentals</strong><br>Choose a term that works for you</span></div>
+      <div class="perk"><span class="perk-icon" aria-hidden="true">♡</span><span><strong>Quality checked</strong><br>Every item is ready for its next home</span></div>
+    </section>
+
+    <section class="container catalog" id="catalog">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">The collection</span>
+          <h2>Find your next favorite.</h2>
+          <p class="section-subtitle">A few good pieces can make a place feel like yours.</p>
+        </div>
+        <input class="search" id="searchInput" type="search" placeholder="Search furniture &amp; appliances" aria-label="Search products">
+      </div>
+
+      <div class="filters" id="filters" aria-label="Filter products">
+        <button class="filter" data-category="All" type="button">Everything</button>
+        <button class="filter" data-category="Living" type="button">Living</button>
+        <button class="filter" data-category="Bedroom" type="button">Bedroom</button>
+        <button class="filter" data-category="Dining" type="button">Dining</button>
+        <button class="filter active" data-category="Appliances" type="button">Appliances</button>
+      </div>
+
+      <div class="products" id="products">
+        <article class="product-card">
+          <div class="product-image">
+            <img src="./FurniRent — Make yourself at home-3_files/photo-1626806787461-102c1bfaaea1" alt="Washer &amp; dryer" loading="lazy">
+            <span class="badge">Popular</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Appliances</div>
+            <h3 class="product-name">Washer &amp; dryer</h3>
+            <div class="product-bottom">
+              <div class="price">$65<small> / month</small></div>
+              <button class="add-button" type="button" aria-label="Add Washer &amp; dryer to cart" data-add="4">+</button>
+            </div>
+          </div>
+        </article>
+      
+        <article class="product-card">
+          <div class="product-image">
+            <img src="./FurniRent — Make yourself at home-3_files/photo-1584568694244-14fbdf83bd30" alt="Compact refrigerator" loading="lazy">
+            <span class="badge">Space saver</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Appliances</div>
+            <h3 class="product-name">Compact refrigerator</h3>
+            <div class="product-bottom">
+              <div class="price">$48<small> / month</small></div>
+              <button class="add-button" type="button" aria-label="Add Compact refrigerator to cart" data-add="7">+</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container banner">
+      <div>
+        <h2>Make room for what’s next.</h2>
+        <p>Moving, settling in, or just ready for a change? Furnish at your pace.</p>
+      </div>
+      <a class="button" href="http://localhost:5500/#catalog">Browse rentals <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="logo" href="http://localhost:5500/#">furni<span>rent</span></a>
+      <span>Rental prices shown per month. Delivery, deposits, and availability depend on your location.</span>
+      <span>© 2026 FurniRent</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Lounge sofa", category: "Living", price: 89, badge: "Bestseller", image: "photo-1555041469-a586c61ea9bc" },
+      { id: 2, name: "Oak dining table", category: "Dining", price: 54, badge: "Solid oak", image: "photo-161 table" },
+      { id: 3, name: "Cloud bed frame", category: "Bedroom", price: 72, badge: "Easy assembly", image: "photo-1505693416388-ac5ce068fe85" },
+      { id: 4, name: "Washer & dryer", category: "Appliances", price: 65, badge: "Popular", image: "photo-1626806787461-102c1bfaaea1" },
+      { id: 5, name: "Accent lounge chair", category: "Living", price: 32, badge: "New arrival", image: "photo-1567538096630-e0c55bd6374c" },
+      { id: 6, name: "Bedside table", category: "Bedroom", price: 18, badge: "Natural finish", image: "photo-1499933374294-4584851497cc" },
+      { id: 7, name: "Compact refrigerator", category: "Appliances", price: 48, badge: "Space saver", image: "photo-1584568694244-14fbdf83bd30" },
+      { id: 8, name: "Dining chair set", category: "Dining", price: 26, badge: "Set of 2", image: "photo-1503602642458-232111445657" }
+    ];
+
+    let activeCategory = "All";
+    let cartItems = 0;
+    const productsEl = document.getElementById("products");
+    const searchInput = document.getElementById("searchInput");
+    const toast = document.getElementById("toast");
+
+    function imageUrl(id) {
+      // Use a reliable neutral photo for the table card when no photo ID is available.
+      const photoId = id === "photo-161 table" ? "photo-1617806118233-18e1de247200" : id;
+      return `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=700&q=80`;
+    }
+
+    function renderProducts() {
+      const term = searchInput.value.trim().toLowerCase();
+      const visible = products.filter(product =>
+        (activeCategory === "All" || product.category === activeCategory) &&
+        `${product.name} ${product.category}`.toLowerCase().includes(term)
+      );
+
+      if (!visible.length) {
+        productsEl.innerHTML = '<div class="empty-state">No items found. Try another search or category.</div>';
+        return;
+      }
+
+      productsEl.innerHTML = visible.map(product => `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${imageUrl(product.image)}" alt="${product.name}" loading="lazy" />
+            <span class="badge">${product.badge}</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">${product.category}</div>
+            <h3 class="product-name">${product.name}</h3>
+            <div class="product-bottom">
+              <div class="price">$${product.price}<small> / month</small></div>
+              <button class="add-button" type="button" aria-label="Add ${product.name} to cart" data-add="${product.id}">+</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    document.getElementById("filters").addEventListener("click", event => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      document.querySelectorAll(".filter").forEach(item => item.classList.toggle("active", item === button));
+      renderProducts();
+    });
+
+    document.querySelector(".nav-links").addEventListener("click", event => {
+      const link = event.target.closest("[data-nav-filter]");
+      if (!link) return;
+      activeCategory = link.dataset.navFilter;
+      document.querySelectorAll(".filter").forEach(item => item.classList.toggle("active", item.dataset.category === activeCategory));
+      renderProducts();
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+
+    productsEl.addEventListener("click", event => {
+      const button = event.target.closest("[data-add]");
+      if (!button) return;
+      cartItems++;
+      document.getElementById("cartCount").textContent = cartItems;
+      const product = products.find(item => item.id === Number(button.dataset.add));
+      toast.textContent = `${product.name} added to your cart`;
+      toast.classList.add("show");
+      window.setTimeout(() => toast.classList.remove("show"), 2200);
+    });
+
+    document.getElementById("cartButton").addEventListener("click", () => {
+      toast.textContent = cartItems
+        ? `Your cart has ${cartItems} item${cartItems === 1 ? "" : "s"}. Checkout is a demo.`
+        : "Your cart is empty — explore the collection to get started.";
+      toast.classList.add("show");
+      window.setTimeout(() => toast.classList.remove("show"), 2600);
+    });
+
+    renderProducts();
+  </script>
+
+<span id="PING_CONTENT_PUSH_NOTIFICATION" style="display: none;"></span></body></html>
